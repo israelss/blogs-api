@@ -12,4 +12,10 @@ router.post(
   userController.create,
 );
 
+router.get(
+  '/',
+  userValidation.token,
+  userController.getAll,
+);
+
 module.exports = router;
