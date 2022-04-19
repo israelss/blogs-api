@@ -19,6 +19,6 @@ const attributes = (DataTypes) => ({
 });
 
 const User = (sequelize, DataTypes) => sequelize
-  .define('User', attributes(DataTypes));
+  .define('User', attributes(DataTypes), { timestamps: false });
 
 module.exports = User;
