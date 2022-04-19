@@ -3,7 +3,7 @@ const userServices = require('../../services/user');
 
 const create = async (req, res) => {
   const token = await userServices.create(req.body);
-  return res.status(success.CREATED).json(token);
+  return res.status(success.CREATED).json({ token });
 };
 
 module.exports = {
