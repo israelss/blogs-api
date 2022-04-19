@@ -9,7 +9,11 @@ const find = {
       [field]: fieldValue,
     },
   }),
-  all: async () => User.findAll(),
+  all: async () => User.findAll({
+    attributes: {
+      exclude: ['password'],
+    },
+  }),
 };
 
 const create = async (userObject) => {
