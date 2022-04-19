@@ -11,4 +11,10 @@ router.post(
   categoriesController.create,
 );
 
+router.get(
+  '/',
+  userValidation.token,
+  categoriesController.getAll,
+);
+
 module.exports = router;
