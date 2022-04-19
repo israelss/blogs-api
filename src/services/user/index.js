@@ -8,6 +8,9 @@ const find = {
     where: {
       [field]: fieldValue,
     },
+    attributes: {
+      exclude: ['password'],
+    },
   }),
   all: async () => User.findAll({
     attributes: {
