@@ -1,6 +1,6 @@
 require('dotenv').config();
 
-const { BlogPost } = require('../../models');
+const { BlogPost, Category, User } = require('../../models');
 const userServices = require('../user');
 
 const create = async (blogPostObject, decodedEmail) => {
@@ -10,6 +10,14 @@ const create = async (blogPostObject, decodedEmail) => {
   return createdBlogPost;
 };
 
+const getAll = async () => BlogPost.findAll({
+  include: [
+    { model: User, as: 'user' },
+    { model: Category, as: 'categories' },
+  ],
+});
+
 module.exports = {
   create,
+  getAll,
 };
