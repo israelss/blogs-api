@@ -18,7 +18,19 @@ const attributes = (DataTypes) => ({
   },
 });
 
-const User = (sequelize, DataTypes) => sequelize
-  .define('User', attributes(DataTypes), { timestamps: false });
+const User = (sequelize, DataTypes) => {
+  const UserModel = sequelize.define(
+    'User',
+    attributes(DataTypes),
+    { timestamps: false },
+  );
+  UserModel.associate = (models) => {
+    UserModel.hasMany(
+      models.BlogPost,
+      { foreignKey: 'userId', as: 'blogPosts' },
+    );
+  };
+  return UserModel;
+};
 
 module.exports = User;
