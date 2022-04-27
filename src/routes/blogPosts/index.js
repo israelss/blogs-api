@@ -23,6 +23,16 @@ router.get(
   '/:id',
   userValidation.token,
   blogPostsController.getById,
+  );
+
+  router.put(
+  '/:id',
+  userValidation.token,
+  blogPostsValidation.user,
+  blogPostsValidation.checkUpdateFields,
+  blogPostsValidation.title,
+  blogPostsValidation.content,
+  blogPostsController.update,
 );
 
 module.exports = router;
