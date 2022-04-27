@@ -19,4 +19,10 @@ router.get(
   blogPostsController.getAll,
 );
 
+router.get(
+  '/:id',
+  userValidation.token,
+  blogPostsController.getById,
+);
+
 module.exports = router;
