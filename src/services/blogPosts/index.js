@@ -3,10 +3,18 @@ require('dotenv').config();
 const { BlogPost, Category, User } = require('../../models');
 const userServices = require('../user');
 
-const create = async (blogPostObject, decodedEmail) => {
+const create = async (blogPostObject, decodedEmail, categoryIds) => {
   const { id: loggedUserId } = await userServices.find.by('email')(decodedEmail);
   const newBlogPost = { ...blogPostObject, userId: loggedUserId };
   const createdBlogPost = await BlogPost.create(newBlogPost);
+  await Promise.all(
+    categoryIds.map(
+      (categoryId) => PostsCategories.create({
+        categoryId,
+        postId: createdBlogPost.id,
+      }),
+    ),
+  );
   return createdBlogPost;
 };
 

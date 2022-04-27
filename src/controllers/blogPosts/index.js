@@ -3,11 +3,11 @@ const { success, clientError } = require('../../helpers/status_codes');
 const blogPostsServices = require('../../services/blogPosts');
 
 const create = async (req, res) => {
-  const { title, content } = req.body;
+  const { title, content, categoryIds } = req.body;
   const { authorization: token } = req.headers;
   const blogPostObject = { title, content };
   const { data: decodedEmail } = jwt.decode(token);
-  const newBlogPost = await blogPostsServices.create(blogPostObject, decodedEmail);
+  const newBlogPost = await blogPostsServices.create(blogPostObject, decodedEmail, categoryIds);
   const createdBlogPost = {
     id: newBlogPost.id,
     title: newBlogPost.title,
