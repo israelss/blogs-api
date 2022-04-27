@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const { success } = require('../../helpers/status_codes');
+const { success, clientError } = require('../../helpers/status_codes');
 const blogPostsServices = require('../../services/blogPosts');
 
 const create = async (req, res) => {
@@ -22,7 +22,15 @@ const getAll = async (req, res) => {
   return res.status(success.OK).json(blogPosts);
 };
 
+const getById = async (req, res) => {
+  const { id } = req.params;
+  const blogPost = await blogPostsServices.getById(id);
+  if (!blogPost) return res.status(clientError.NOT_FOUND).json({ message: 'Post does not exist' });
+  return res.status(success.OK).json(blogPost);
+};
+
 module.exports = {
   create,
   getAll,
+  getById,
 };
