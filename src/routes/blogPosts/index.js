@@ -34,6 +34,14 @@ router.put(
   blogPostsValidation.title,
   blogPostsValidation.content,
   blogPostsController.update,
+  );
+
+router.delete(
+  '/:id',
+  userValidation.token,
+  blogPostsValidation.postExists,
+  blogPostsValidation.user,
+  blogPostsController.deletePost,
 );
 
 module.exports = router;
