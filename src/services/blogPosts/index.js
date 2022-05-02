@@ -1,6 +1,6 @@
 require('dotenv').config();
 
-const { BlogPost, Category, PostsCategories, User } = require('../../models');
+const { BlogPost, Category, PostsCategories, User, Sequelize } = require('../../models');
 const userServices = require('../user');
 
 const create = async (blogPostObject, decodedEmail, categoryIds) => {
@@ -52,10 +52,32 @@ const update = async ({ id, title, content }) => {
 
 const deletePost = async (id) => BlogPost.destroy({ where: { id } });
 
+const search = async (query) => {
+  const { or } = Sequelize.Op;
+
+  const whereObject = query
+  ? {
+    [or]: [
+      { title: query },
+      { content: query },
+    ],
+  }
+  : {};
+
+  return BlogPost.findAll({
+    where: whereObject,
+    include: [
+      { model: User, as: 'user' },
+      { model: Category, as: 'categories' },
+    ],
+  });
+};
+
 module.exports = {
   create,
   deletePost,
   getAll,
   getById,
+  search,
   update,
 };
