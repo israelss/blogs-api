@@ -4,6 +4,12 @@ const blogPostsController = require('../../controllers/blogPosts');
 
 const router = express.Router();
 
+router.get(
+  '/search',
+  userValidation.token,
+  blogPostsController.search,
+);
+
 router.post(
   '/',
   userValidation.token,
