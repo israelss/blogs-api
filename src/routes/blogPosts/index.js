@@ -25,9 +25,10 @@ router.get(
   blogPostsController.getById,
   );
 
-  router.put(
+router.put(
   '/:id',
   userValidation.token,
+  blogPostsValidation.postExists,
   blogPostsValidation.user,
   blogPostsValidation.checkUpdateFields,
   blogPostsValidation.title,
