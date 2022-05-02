@@ -28,7 +28,15 @@ const create = async (userObject) => {
   return token;
 };
 
+const deleteUser = async (token) => {
+  const { data: decodedEmail } = jwt.decode(token);
+  return User.destroy({
+    where: { email: decodedEmail },
+  });
+};
+
 module.exports = {
   create,
+  deleteUser,
   find,
 };
